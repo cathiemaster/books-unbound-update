@@ -41,9 +41,12 @@ def main():
     print("------------ starting script ------------")
     html_soup = get_data(BOOKS_UNBOUND_URL)
     book_list = html_soup.find_all("p", class_="")
+
     booklist_df = process_book_list(book_list)
     filtered_booklist_df = booklist_df.drop_duplicates(subset=["title", "author"])
+    print(f"retrieved {len(booklist_df.index)} unique book titles")
 
+    booklist_df.to_csv("112024-books-unbound-booklist.csv", index=False)
     print("------------ finished script ------------")
 
 
